@@ -28,9 +28,9 @@ namespace SocketOps {
 
     bool isSelfConnect(int sockfd);
 
-    struct sockaddr_in6 getLocalAddr(int sockfd);
+    struct sockaddr_in getLocalAddr(int sockfd);
 
-    struct sockaddr_in6 getPeerAddr(int sockfd);
+    struct sockaddr_in getPeerAddr(int sockfd);
 
 }// namespace SocketOps
 

@@ -53,6 +53,10 @@ public:
 
     void shutdown();
 
+    void forceClose();
+
+    void forceCloseInLoop();
+
     bool connect() const {
         return state_ == Connected;
     }
@@ -112,5 +116,9 @@ private:
     Buffer input_buffer_;
     Buffer output_buffer_;
 };
+
+void defaultConnectionCallback(const TcpConnectionPtr &conn);
+
+void defaultMessageCallback(const TcpConnectionPtr &conn, Buffer *buf, Timestamp time);
 
 #endif//MYMUDUO_TCPCONNECTION_H

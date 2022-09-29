@@ -1,13 +1,7 @@
 #include "net/TcpServer.h"
 #include "net/EventLoopThreadPool.h"
 
-void defaultConnectionCallback(const TcpConnectionPtr &conn) {
-    LOG_TRACE << "new connect";
-}
 
-void defaultMessageCallback(const TcpConnectionPtr &conn, Buffer *buf, Timestamp time) {
-    buf->retrieveAll();
-}
 
 TcpServer::TcpServer(EventLoop *loop, const InetAddress &listen_addr,
                      std::string name, TcpServer::Option option)

@@ -4,6 +4,7 @@
 #include "Callbacks.h"
 #include "base/Timestamp.h"
 #include "base/noncopyable.h"
+#include "net/TimerId.h"
 #include <atomic>
 #include <functional>
 #include <memory>
@@ -11,8 +12,6 @@
 #include <thread>
 
 class Channel;
-
-class TimerId;
 
 class TimerQueue;
 

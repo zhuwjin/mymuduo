@@ -1,9 +1,16 @@
 #include "net/TcpConnection.h"
-
 #include "net/Channel.h"
 #include "net/EventLoop.h"
 #include "net/Socket.h"
 #include <utility>
+
+void defaultConnectionCallback(const TcpConnectionPtr &conn) {
+    LOG_TRACE << "new connect";
+}
+
+void defaultMessageCallback(const TcpConnectionPtr &conn, Buffer *buf, Timestamp time) {
+    buf->retrieveAll();
+}
 
 TcpConnection::TcpConnection(EventLoop *loop, std::string name,
                              int sockfd, const InetAddress &local_addr,
@@ -87,6 +94,7 @@ void TcpConnection::connectEstablished() {
     setState(Connected);
     channel_->tie(shared_from_this());
     channel_->enableReading();
+    connection_callback_(shared_from_this());
 }
 
 void TcpConnection::connectDestroyed() {
@@ -154,4 +162,15 @@ void TcpConnection::handleError() {
         err = optval;
     }
     LOG_ERROR << "TcpConnection::handleError name:%" << name_ << " - SO_ERROR:%d" << strerror(err);
+}
+void TcpConnection::forceClose() {
+    if (state_ == Connected || state_ == Disconnecting) {
+        setState(Disconnecting);
+        loop_->queueInLoop([p = shared_from_this()] { p->forceCloseInLoop(); });
+    }
+}
+void TcpConnection::forceCloseInLoop() {
+    if (state_ == Connected || state_ == Disconnecting) {
+        handleClose();
+    }
 }

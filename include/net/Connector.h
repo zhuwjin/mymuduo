@@ -20,6 +20,10 @@ public:
         new_connection_callback_ = cb;
     }
 
+    InetAddress serverAddress() const {
+        return server_addr_;
+    }
+
     void start();
     void restart();
     void stop();
@@ -29,8 +33,8 @@ private:
         Connecting,
         Connected
     };
-    static const int MaxRetryDelayMs = 30 * 1000;
-    static const int InitRetryDelayMs = 500;
+    inline static const int MaxRetryDelayMs = 30 * 1000;
+    inline static const int InitRetryDelayMs = 500;
 
     void setState(State s) {
         state_ = s;

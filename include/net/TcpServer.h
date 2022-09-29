@@ -23,7 +23,7 @@ public:
         ReusePort,
     };
 
-    TcpServer(EventLoop *fd, const InetAddress &addr, std::string name, Option option = NoReusePort);
+    TcpServer(EventLoop *loop, const InetAddress &addr, std::string name, Option option = NoReusePort);
 
     ~TcpServer();
 
