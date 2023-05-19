@@ -5,7 +5,9 @@
 #include "Callbacks.h"
 #include "InetAddress.h"
 #include "base/noncopyable.h"
+#include <any>
 #include <atomic>
+#include <utility>
 
 class EventLoop;
 
@@ -73,6 +75,18 @@ public:
 
     void connectDestroyed();
 
+    void setContext(std::any context) {
+        this->context_ = std::move(context);
+    }
+
+    const std::any &getContext() const {
+        return this->context_;
+    }
+
+    std::any &getMutableContext() {
+        return this->context_;
+    }
+
 private:
     enum StateE {
         Disconnected,
@@ -115,6 +129,7 @@ private:
     size_t high_water_mark_;
     Buffer input_buffer_;
     Buffer output_buffer_;
+    std::any context_;
 };
 
 void defaultConnectionCallback(const TcpConnectionPtr &conn);

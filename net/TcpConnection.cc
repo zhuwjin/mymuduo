@@ -161,7 +161,7 @@ void TcpConnection::handleError() {
     } else {
         err = optval;
     }
-    LOG_ERROR << "TcpConnection::handleError name:%" << name_ << " - SO_ERROR:%d" << strerror(err);
+    LOG_ERROR << "TcpConnection::handleError name:" << name_ << " - SO_ERROR:" << strerror(err);
 }
 void TcpConnection::forceClose() {
     if (state_ == Connected || state_ == Disconnecting) {
