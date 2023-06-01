@@ -43,6 +43,10 @@ public:
         return micro_seconds_since_epoch_;
     }
 
+    void swap(Timestamp &other) {
+        std::swap(micro_seconds_since_epoch_, other.micro_seconds_since_epoch_);
+    }
+
 private:
     time_t micro_seconds_since_epoch_;
 };
