@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+inline constexpr char CRLF[] = "\r\n";
+
 class Buffer : public noncopyable {
 public:
     using ptr = std::shared_ptr<Buffer>;
@@ -48,6 +50,11 @@ public:
         return begin() + read_index_;
     }
 
+    const char *findCRLF() const {
+        const char *crlf = std::search(peek(), beginWrite(), CRLF, CRLF + 2);
+        return crlf == beginWrite() ? nullptr : crlf;
+    }
+
     std::string retrieveAsString(size_t len) {
         std::string str(peek(), len);
         retrieve(len);
@@ -73,7 +80,6 @@ public:
     void append(const std::string &str) {
         append(str.c_str(), str.length());
     }
-
 
 
     char *beginWrite() {
