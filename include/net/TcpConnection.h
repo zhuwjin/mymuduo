@@ -79,12 +79,12 @@ public:
         this->context_ = std::move(context);
     }
 
-    const std::any &getContext() const {
-        return this->context_;
+    const std::any *getContext() const {
+        return &context_;
     }
 
-    std::any &getMutableContext() {
-        return this->context_;
+    std::any *getMutableContext() {
+        return &context_;
     }
 
 private:

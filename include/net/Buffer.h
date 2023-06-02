@@ -3,6 +3,7 @@
 
 #include "../base/noncopyable.h"
 #include "SocketOps.h"
+#include <algorithm>
 #include <atomic>
 #include <cstring>
 #include <memory>
