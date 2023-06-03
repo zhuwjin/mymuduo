@@ -133,7 +133,7 @@ private:
         }
     }
     static const int NoneEvent = 0;
-    static const int ReadEvent = EPOLLIN | EPOLLET;
+    static const int ReadEvent = EPOLLIN;
     static const int WriteEvent = EPOLLOUT;
 
     EventLoop *loop_;
